@@ -24,6 +24,9 @@ var contando = false;
 var atividade = 'foco';
 var botoesHabilitados = true;
 
+
+musica.loop = true;
+
 // Mudando tema do projeto 
 function mudarTema(x){
     botoes.forEach(element=>{
@@ -54,7 +57,17 @@ function mudarTema(x){
     timer.textContent = `${minutos}:${segundos}`;
 }
 
-
+    function mudarBotao(){
+        if(contando === false){
+            //começar
+            txtPausePlay.textContent = "Começar";
+            imgPausePlay.setAttribute('src', `/imagens/play_arrow.png`);
+        }else{
+            //pausar
+            txtPausePlay.textContent = "Pausar";
+            imgPausePlay.setAttribute('src', `/imagens/pause.png`);
+        }
+    }
 //Eventos dos botões
     botoes.forEach((element)=>{
         element.addEventListener('click', ()=>{
@@ -76,12 +89,14 @@ function mudarTema(x){
 
     btnPausePlay.addEventListener('click', ()=>{
         iniciar(tempo);
+        mudarBotao();
     })
 
 //TEMPORIZADOR
     timer.textContent = `${minutos}:${segundos}`;
     function iniciar(t){
         if(contando === false){
+            //mudarBotao();
             contando = true;
             contagem = setInterval(()=>{
                 if(t >= 0){
@@ -99,7 +114,9 @@ function mudarTema(x){
                 }
             }, 1000)
         }else{
+            //mudarBotao();
             console.log('A contagem já está em andamento.');
+            pausar();
         }
     }
 
